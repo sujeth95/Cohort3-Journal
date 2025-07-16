@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>DOM Part 2 (TODO)</title>
+    </head>
+    <body>
+        <input type="text"></input>
+        <button onClick="addTodo()">Add todo</button>
+    </body>
+    <script>
+        function addTodo(){
+        //extracting element
+        let ele = document.querySelector("input");
+        let eleValue = ele.value;
+
+        //Creating element
+        let newDiv = document.createElement("div");
+        newDiv.setAttribute("id","Todo-"+ eleValue);
+        newDiv.innerHTML = "<div>"+ value + "</div>";
+        }
+
+        //Appending element
+        document.querySelector("body").appendChild(newDiv);
+    </script>
+</html>

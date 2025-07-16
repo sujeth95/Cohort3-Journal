@@ -1,0 +1,22 @@
+<body>
+    <input type="text"></input>
+    <button onclick="addTodo()">Add Todo!</button>
+    <script>
+        function addTodo() {
+            //1st check point
+            const value = document.querySelector("input").value;
+            const spanEl = document.createElement("span");
+            const buttonEl = document.createElement("button");
+            spanEl.innerHTML = value;
+            buttonEl.innerHTML = "Delete";
+
+            //2nd check point
+            const divEl = document.createElement("div");
+            divEl.appendChild(spanEl);
+            divEl.appendChild(buttonEl);
+
+            //3rd check point
+            document.querySelector("body").appendChild(divEl);
+        }
+    </script>
+</body>

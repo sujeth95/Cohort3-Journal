@@ -1,0 +1,1 @@
+To Run the chalk library use => node --experimental-modules index.mjs

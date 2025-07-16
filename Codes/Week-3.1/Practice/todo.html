@@ -1,0 +1,30 @@
+<html>
+    <body>
+        <input placeholder="Enter Your Todo" type="text"></input>
+        <button onClick="addTodo()">Add Todo</button>
+    </body>
+    <script>
+        let ctr = 1;
+        //Deleting Element
+        function deleteTodo(index){
+            const element = document.getElementById("todo-" + index);
+            element.parentNode.removeChild(element);
+        }
+
+        function addTodo() {
+        //Extracting element
+        const Ext = document.querySelector("input");
+        const value = Ext.value;
+
+        //Creating Div
+        const newDiv = document.createElement("div");
+        newDiv.setAttribute("id","todo-" + ctr);
+        newDiv.innerHTML = "<div>" + value + "</div><button onClick='deleteTodo("+ ctr +")'>Delete</button>";
+
+        //Setting Parent Element
+        document.querySelector("body").appendChild(newDiv);
+        ctr++;
+        
+        }
+    </script>
+</html>

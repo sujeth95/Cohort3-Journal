@@ -1,0 +1,35 @@
+<!-- <html>
+    <body id="body">
+        <h2>Todo 1</h2>
+        <h2>Todo 2</h2>
+        <h2>Todo 3</h2>
+        <button onClick="deleteRandomTodo()">Updating Todo!</button>
+    </body>
+    <script>
+        function deleteRandomTodo() {
+            const element = document.querySelector("h2");
+            const parentElement = element.parentNode;
+            parentElement.removeChild(element);
+            // const parentElement = document.getElementById("body");  //This can also be used.
+        }
+
+    </script>
+</html> -->
+
+<!-- ==========ANOTHER SETUP========= -->
+
+<html>
+    
+    <body>
+        <div id="topDiv">
+            Hii There.
+        </div>
+    </body>
+    <script>
+        const divEl = document.createElement("div");
+        divEl.innerHTML = "Hii There! Nice to meet you.";
+        const parentEl = document.querySelector("body");
+        parentEl.appendChild(divEl);
+    </script>
+
+</html>
