@@ -12,6 +12,10 @@ function logger(req,res,next){
     next();
 }
 
+app.get("/", function(req,res){
+    res.sendFile(__dirname + "/public/index.html");
+})
+
 app.post("/signup",logger, function (req, res) {
     const username = req.body.username;
     const password = req.body.password;
@@ -46,7 +50,7 @@ app.post("/signin",logger, function (req, res) {
         return
     } else {
         const token = jwt.sign({
-            username
+            username: users[i].username
         }, JWT_SECRET);
         res.header("jwt",token); //sending token in response headers.
 
