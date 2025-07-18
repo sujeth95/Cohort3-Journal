@@ -23,7 +23,7 @@ async function main() {
             Authorization: "Bearer 123",
         }
     });
-
+//NOTE: In axios get does not send body while the rest do.
     console.log(response.data.length);
 }
 
