@@ -34,8 +34,19 @@ const input = [1, 2, 3, 4, 5];
 // }
 
 // console.log(newArray);
-function transform(i){
+
+//NOTE: Whenever you are told to transform array , you use map.
+
+// function transform(i){
+//     return i * 2;
+// }
+// const ans = input.map(transform);
+// console.log(ans);
+const ans = input.map(function(i){
     return i * 2;
-}
-const ans = input.map(transform);
+});
 console.log(ans);
+
+//H.W -> create a map function that takes 2 inputs an array, 
+//and a transformation callback/fn and transforms the array
+//array into a new one using the transformation fn.
