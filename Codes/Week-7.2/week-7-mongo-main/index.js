@@ -17,7 +17,7 @@ app.post("/signup", async function(req, res) {
         name: z.string().min(3).max(100),
         password: z.string().min(3).max(30)
     })
-
+    
     let errorThrown = false;
     try {
     const hashedPassword = await bcrypt.hash(password, 5);
