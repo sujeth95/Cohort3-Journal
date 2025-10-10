@@ -1,21 +1,45 @@
-const { Schema } = require("mongoose");
+const mongoose = require("mongoose");
+console.log("Connect to")
+mongoose.connect("mongodb+srv://sujeet337:8CvsLEwDlSphN2C1@cluster0.sjari5s.mongodb.net/coursera-app");
 
-const userSchema = Schema({
+const Schema = mongoose.Schema;
+const ObjectId = mongoose.Types.ObjectId;
 
+const userSchema = new Schema({
+    email: { type: String, unique: true },
+    password: String,
+    firstName: String,
+    LastName: String
 });
 
-const adminSchema = Schema({
-
+const adminSchema = new Schema({
+    email: { type: String, unique: true },
+    password: String,
+    firstName: String,
+    lastName: String
 });
 
-const courseSchema = Schema({
-
+const courseSchema = new Schema({
+    title: String,
+    description: String,
+    price: Number,
+    imageUrl: String,
+    creatorId: ObjectId
 });
 
-const purchaseSchema = Schema({
-
+const purchaseSchema = new Schema({
+    userId: ObjectId,
+    courseId: ObjectId
 });
+
 const userModel = mongoose.Model("user", userSchema);
-const adminModel = mongoose.Model("admin", userSchema);
-const courseModel = mongoose.Model("course", userSchema);
-const purchaseModel = mongoose.Model("purchase", userSchema);
+const adminModel = mongoose.Model("admin", adminSchema);
+const courseModel = mongoose.Model("course", courseSchema);
+const purchaseModel = mongoose.Model("purchase", purchaseSchema);
+
+module.export = {
+    userModel,
+    adminModel,
+    courseModel,
+    purchaseModel
+}
