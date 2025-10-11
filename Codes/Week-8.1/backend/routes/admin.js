@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const adminRouter = Router();
-const { adminModel } = require("../db");
+
+adminRouter.use(adminMiddleware);
 
 adminRouter.post("/signup", (req,res) => {
     res.json({
@@ -20,8 +21,14 @@ adminRouter.post("/course", (req,res) => {
     })
 })
 
+adminRouter.put("/course", (req,res) => {
+    res.json({
+        message: "Signup endpoint"
+    })
+})
+
 adminRouter.get("/course/bulk", (req,res) => {
     res.json({
-        message: "signup endpoint"
+        message: "Signup endpoint"
     })
 })
