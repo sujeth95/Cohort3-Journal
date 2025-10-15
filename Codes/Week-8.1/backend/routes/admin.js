@@ -51,7 +51,7 @@ adminRouter.post("/course",adminMiddleware, async (req,res) => {
     const { title, description, imageUrl, price } = req.body;
 
     // creating a web3 saas in 6 hours (watch it in youtube)
-    await courseModel.create({
+    const course = await courseModel.create({
         // title, description, imageUrl, price, creatorId: adminId  //(Can also be written as such or convienence)
         title: title,
         description: description,
@@ -61,7 +61,8 @@ adminRouter.post("/course",adminMiddleware, async (req,res) => {
     })
     
     res.json({
-        message: "Signup endpoint"
+        message: "Course Created",
+        courseId: course._id
     })
 })
 
