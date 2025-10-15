@@ -1,6 +1,6 @@
 // NOTE: Always avoid circular dependency between folders.
-const JWT_USER_PASSWORD = "alald124";
-const JWT_ADMIN_PASSWORD = "112Adjf";
+const JWT_USER_PASSWORD = process.env.JWT_USER_PASSWORD
+const JWT_ADMIN_PASSWORD = process.env.JWT_ADMIN_PASSWORD
 
 module.exports = {
     JWT_USER_PASSWORD,

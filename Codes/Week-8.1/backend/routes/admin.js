@@ -48,10 +48,13 @@ adminRouter.post("/signin", async (req,res) => {
 adminRouter.post("/course",adminMiddleware, async (req,res) => {
     const adminId = req.userId;
 
-    const { title, description, imageUrl, price } = req.body;
+    const { title, description, imageUrl, price, courseId } = req.body;
 
     // creating a web3 saas in 6 hours (watch it in youtube)
-    const course = await courseModel.create({
+    const course = await courseModel.updateOne({
+        _id: courseId,
+        creatorId: adminId
+    },{
         // title, description, imageUrl, price, creatorId: adminId  //(Can also be written as such or convienence)
         title: title,
         description: description,
@@ -72,10 +75,18 @@ adminRouter.put("/course", (req,res) => {
     })
 })
 
-adminRouter.get("/course/bulk", (req,res) => {
-    res.json({
-        message: "Signup endpoint"
+adminRouter.get("/course/bulk",adminMiddleware, async (req,res) => {
+    const adminId = req.userId;
+    
+    const course = await courseModel.updateOne({
+        creatorId: adminId
     })
+    
+    res.json({
+        message: "Course updated",
+        courseId: course._id
+    })
+
 })
 
 module.exports = {
