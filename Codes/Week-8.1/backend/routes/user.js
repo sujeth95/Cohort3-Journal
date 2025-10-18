@@ -2,7 +2,7 @@
 // const Router = express.Router;
 
 const { Router } = require("express");   // Any two of the above can be used.
-const { userModel } = require("../db");
+const { userModel, purchaseModel } = require("../db");
 const jwt = require("jsonwebtoken");
 const { JWT_USER_PASSWORD } = require("../config");
 const userRouter = Router();
@@ -60,15 +60,26 @@ userRouter.post("/signin", async (req, res) => {
     }
 })
 
-userRouter.get("/purchases", userMiddleware, async(req, res) => {
+userRouter.get("/purchases", userMiddleware, async (req, res) => {
     const userId = req.userId;
 
     const purchases = await purchaseModel.find({
         userId,
     })
 
+    // let purchasedCourseIds = [];
+
+    // for (let i = 0; i < purchases.length; i++) {
+    //     purchasedCourseIds.push(purchases[i].courseID)
+    // }
+
+    const courseData = await courseModel.find({
+        _id: { $in: purchases.map(x => x.courseId) }
+    })
+
     res.json({
-        purchases
+        purchases,
+        courseData
     })
 })
 
