@@ -17,29 +17,29 @@ function generateToken() {
     return token;
 }
 
-app.post("/signup", (req,res) => {
+app.post("/signup", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    
+
     users.push({
         username: username,
         password: password
     })
-    
+
     res.json({
         message: "You are signed in"
     })
 })
 
-app.post("/signin", (req,res) => {
+app.post("/signin", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
     let founderUser = null;
 
-    for(let i = 0; i<users.length; i++){
-        if(users[i].username == username && users[i].password == password) {
+    for (let i = 0; i < users.length; i++) {
+        if (users[i].username == username && users[i].password == password) {
             foundUser = users[i]
         }
     }
@@ -53,7 +53,7 @@ app.post("/signin", (req,res) => {
     //     }
     // })
 
-    if(foundUser) {
+    if (foundUser) {
         const token = generateToken();
         foundUser.token = token;
         res.json({
@@ -62,6 +62,32 @@ app.post("/signin", (req,res) => {
     } else {
         res.status(403).send({
             message: "Invalid username or password"
+        })
+    }
+})
+
+app.get("/me", (req, res) => {
+    const token = req.headers.token; //jwt
+    const decodedInformation = JsonWebTokenError.verify(token, JWT_SECRET);  // {username: "sujeet@gmail.com"}
+    const unAuthDecodedinfo = jwt.decode(token); // {username: "sujeet@gmail.com"}
+    const username = decodedInformation.username
+    
+    let foundUser = null;
+
+    for (let i = 0; i < users.length; i++) {
+        if (users[i].username == username) {
+            foundUser = users[i]
+        }
+    }
+
+    if (foundUser) {
+        res.json({
+            username: foundUser.username,
+            password: foundUser.password
+        })
+    } else {
+        res.json({
+            message: "Invalid token"
         })
     }
 })
