@@ -52,6 +52,18 @@ app.post("/signin", (req,res) => {
     //         return false;
     //     }
     // })
+
+    if(foundUser) {
+        const token = generateToken();
+        foundUser.token = token;
+        res.json({
+            token: token
+        })
+    } else {
+        res.status(403).send({
+            message: "Invalid username or password"
+        })
+    }
 })
 
 app.listen(3000); // that the http server is listening on port 3000.
