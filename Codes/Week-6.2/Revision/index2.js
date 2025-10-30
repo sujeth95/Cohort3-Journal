@@ -2,6 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 // const axios = require("axios");
 
+// NOTE: The most important case of middleware is authentication.
 const JWT_SECRET = "sujeet124";
 
 const app = express();
@@ -9,7 +10,12 @@ app.use(express.json());
 
 const users = [];
 
-app.post("/signup", (req, res) => {
+function logger(req, res, next) {
+    console.log(`${req.method} request came`);
+    next();
+}
+
+app.post("/signup", logger, (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
@@ -25,7 +31,7 @@ app.post("/signup", (req, res) => {
     })
 })
 
-app.post("/signin", (req, res) => {
+app.post("/signin", logger, (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
@@ -54,28 +60,45 @@ app.post("/signin", (req, res) => {
     }
 })
 
-app.get("/me", (req, res) => {
+function auth(req, res, next) {
     const token = req.headers.token;
-
     const decodedData = jwt.verify(token, JWT_SECRET);
-
+    const currentUser = decodedData.username;
+    
     if (decodedData.username) {
-        let foundUser = null;
-
-        for (let i = 0; i < users.length; i++) {
-            if (users[i].username === decodedData.username) {
-                foundUser = users[i];
-            }
-        }
-
+        req.username = decodedData.username
+        next()
+    } else {
         res.json({
-            username: foundUser.username,
-            password: foundUser.password
+            message: "You are not logged in"
         })
     }
-})
+}
+
+app.get("/me", logger, auth, (req, res) => {
+    const currentUser = req.username;
+    
+    // const token = req.headers.token;
+    // const decodedData = jwt.verify(token, JWT_SECRET);
+    // const currentUser = decodedData.username;
+
+    for (let i = 0; i < users.length; i++) {
+        if (users[i].username === currentUser) {
+            foundUser = users[i];
+        }
+    }
+
+    res.json({
+        username: foundUser.username,
+        password: foundUser.password
+    })
+}
+
+)
 
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Port running ${PORT}`);
 });
+
+// Aunctihi wirting the frontend 
