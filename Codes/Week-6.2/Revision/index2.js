@@ -15,6 +15,11 @@ function logger(req, res, next) {
     next();
 }
 
+// localhost:3000    Avoid CORS  
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "Public/index.html")  //__dirname -> is a global variable which holds you current directory.
+})
+
 app.post("/signup", logger, (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
@@ -50,7 +55,7 @@ app.post("/signin", logger, (req, res) => {
         return
     } else {
         const token = jwt.sign({
-            username
+            username: foundUser.username
         }, JWT_SECRET);
         res.header("jwt", token);  // Remember this: This helps to send token to response header
 
@@ -64,7 +69,7 @@ function auth(req, res, next) {
     const token = req.headers.token;
     const decodedData = jwt.verify(token, JWT_SECRET);
     const currentUser = decodedData.username;
-    
+
     if (decodedData.username) {
         req.username = decodedData.username
         next()
@@ -77,7 +82,7 @@ function auth(req, res, next) {
 
 app.get("/me", logger, auth, (req, res) => {
     const currentUser = req.username;
-    
+
     // const token = req.headers.token;
     // const decodedData = jwt.verify(token, JWT_SECRET);
     // const currentUser = decodedData.username;

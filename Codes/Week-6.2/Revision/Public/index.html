@@ -12,9 +12,42 @@
                 username: username,
                 password: password
             });
+
+            localStorage.setItem("token", response.data.token);
+            
             alert("You are signed in");
         }   
-        
+        async function signin() {
+            const username = document.getElementById("signin-username").value;
+            const password = document.getElementById("signin-password").value;
+            const response = await axios.post("http://localhost:3000/signin", {
+                username: username,
+                password: password
+            })
+
+            console.log(response);   // {data: {}, statusCode: 200, headers: ....}
+
+            localStorage.setItem("token", response.data.token);
+
+            fs.readFile(function(err,data) {
+
+            })
+
+            alert("You are sign in");
+        }
+        async function getUserInformation() {
+            const response = await axios.get("http://localhost:3000/me", {
+                headers: {
+                    token: localStorage.getItem("token")
+                }
+            })
+            document.getElementById("information").innerHTML = "Username: " + response.data.username + "Password: " + response.data.password
+        }
+        getUserInformation();
+
+        function logout() {
+            localStorage.removeItem("token");
+        }
     </script>
     
     <body>
@@ -26,8 +59,8 @@
         </div>
         <div>
             Signin
-            <input type="text" name="Username" placeholder="Username">
-            <input type="password" name="password" placeholder="Password">
+            <input id="signin-username"type="text" name="Username" placeholder="Username">
+            <input id="signin-password" type="password" name="password" placeholder="Password">
             <button onclick="signin()">Submit</button>
         </div>
         <div>
