@@ -6,16 +6,6 @@ const app = express();
 app.use(express.json());  // helps to parse any POST request from res.body
 const users = [];  // creating an in memory variable.
 
-function generateToken() {
-    let options = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-
-    let token = "";
-    for (let i = 0; i < 32; i++) {
-        // use a simple function here
-        token += options[Math.floor(Math.random() * options.length)];
-    }
-    return token;
-}
 
 app.post("/signup", (req, res) => {
     const username = req.body.username;
@@ -51,6 +41,7 @@ app.post("/signin", (req, res) => {
         }
     }
 
+    // ALSO A WAY TO AUTHENTICATE A USER
     // const user = users.findOne(function (u) {
     //     if (u.username == username && u.password == password) {
     //         return true;
@@ -60,10 +51,12 @@ app.post("/signin", (req, res) => {
     // })
 
     if (foundUser) {
-        const token = jwt.sign({
+        const token = jwt.sign({     // convert their username over to a jwt
             username: username
-        }, JWT_SECRET);
+        }, JWT_SECRET);   // Never use a password in JWT
+
         // foundUser.token = token;
+
         res.json({
             token: token
         })
@@ -79,7 +72,7 @@ app.get("/me", (req, res) => {
     const token = req.headers.token;  // jwt
     const decodedInformation = jwt.verify(token, JWT_SECRET); // {username: sujeet@gmail.com}
     const username = decodedInformation.username;
-    
+
     let foundUser = null;
 
     for (let i = 0; i < users.length; i++) {
@@ -100,7 +93,16 @@ app.get("/me", (req, res) => {
     }
 })
 
+app.get("/courses",async (req, res) => {
+    //decode the user
+    // const user = await db.query("SELECT * FROM users where token = " + req.headers.token)
+    const userid = jwt.verify(req.headers.token);
+
+    //get their purchase
+    await db.query("SELECT * FROM courses where userId = " + user);
+})
+
 const PORT = 3000;
 app.listen(PORT, () => {    // that the port is listening in 3000.
-    console.log(`Running on port ${PORT}`);
+    console.log(`Running on port ${PORT}.`);
 })
