@@ -1,0 +1,58 @@
+body {
+    font-family: "Inter", serif;
+}
+
+#navbar {
+    display: flex;
+    justify-content: space-between;
+    margin: 25px 20% 0% 10%;
+}
+
+#navbar_right {
+    display: flex;
+}
+
+#navbar_right a {
+    padding: 10px 10px 10px 10px;
+    text-decoration: none;
+    color: #666;
+    font-size: 20px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+#landingPage img {
+    /* height: 750px; */
+    width: 700px;
+    padding: 100px 100px 30px 30%;  
+}
+
+#word_phase h2{
+    text-align: center;
+    color: #424242;
+    font-family: "Inter", serif;
+    font-weight: 28px;
+    font-size: 40px;
+}
+
+#word_phase p {
+    text-align: center;
+    font-size: 25px;
+    margin: 0px 0px;
+}
+
+#word_phase  button {
+    margin-top: 18px;
+    display: inline-block;
+    background: #387ed1;
+    color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 3px;
+    padding: 10px 30px;
+    text-align: center;
+}
+
+/* Center inline and inline-block children inside the #word_phase container */
+#word_phase {
+    text-align: center;
+}
