@@ -1,0 +1,30 @@
+// // ==== Learning about functions ======
+
+// function sum(a, b) {  // takes two arguments
+//     // do things with the input and returns an output
+//     const sumValue = a + b;
+//     return sumValue;
+// }
+
+// const value = sum(1, 3);  // two arguments are given
+// console.log(value);
+
+
+/// ====== Functions Part II ========
+function sum(num1, num2) {
+    let result = num1 + num2;
+    return result;
+}
+
+function displayResult(data) {
+    console.log("Result of the sum is: " + data);
+}
+
+function displayResultPassive(data) {
+    console.log("Sum's result is: " + data);
+}
+
+// You are only allowed to call on function after this
+// How will you displayResult of a sum
+const ans = sum(1, 2);
+displayResult(ans);
