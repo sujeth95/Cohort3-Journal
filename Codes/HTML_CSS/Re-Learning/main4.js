@@ -11,9 +11,9 @@
 
 
 /// ====== Functions Part II ========
-function sum(num1, num2) {
+function sum(num1, num2, fnToCall) {
     let result = num1 + num2;
-    return result;
+    fnToCall(result);
 }
 
 function displayResult(data) {
@@ -26,5 +26,4 @@ function displayResultPassive(data) {
 
 // You are only allowed to call on function after this
 // How will you displayResult of a sum
-const ans = sum(1, 2);
-displayResult(ans);
+const ans = sum(1, 2, displayResult);

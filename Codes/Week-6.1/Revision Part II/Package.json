@@ -1,9 +1,11 @@
 {
-  "name": "website7.1",
+  "name": "revision-part-ii",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "start": "nodemon index2.js"
   },
   "keywords": [],
   "author": "",
